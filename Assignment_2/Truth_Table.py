@@ -9,18 +9,11 @@ class Truth_Table:
 
     def inference(self):
         # Extract all unique propositional symbols from the knowledge base and query
-        print(self.kb)
-        # symbols = set()
-        # for expression in self.kb + [self.query]:
-        #     symbols.update([char for char in expression.split() if char.isalnum()])
-
-        # symbols = list(symbols)  # Convert set to list
-
-        # Extract all unique propositional symbols from the knowledge base and query
+        # print(self.kb)
+        # Use regular expressions to find and replace only whole word symbols, ensuring that partial matches (like replacing 'a' in 'cat') do not occur.
         symbols = set(re.findall(r'\b\w+\b', ' '.join(self.kb + [self.query])))
         symbols.difference_update(set(['and', 'or', 'not']))  # Remove logical keywords if accidentally captured
-
-        print(symbols)           # debugging symbols list
+        print(symbols)           # debugging symbols extraction
 
         # Generate all possible interpretations (combinations of truth values for each symbol)
         all_interpretations = list(itertools.product([False, True], repeat=len(symbols)))
@@ -33,7 +26,7 @@ class Truth_Table:
         # Replace each symbol with its truth value in symbol_table
             for symbol in symbols:
                 expr = re.sub(r'\b' + re.escape(symbol) + r'\b', f'{symbol_table[symbol]}', expr)
-            expr = expr.replace('=>', '<=').replace('&', ' and ').replace('|', ' or ').replace('~', ' not ')
+            expr = expr.replace('<=>', '==').replace('=>', '<=').replace('&', ' and ').replace('|', ' or ').replace('~', 'not ')
             return expr
 
         # Check each interpretation
@@ -50,4 +43,4 @@ class Truth_Table:
             if kb_true and eval(prepared_query): # Check if the knowledge base is true and the query is true
                 model_count += 1
 
-        return "Yes: " + str(model_count) if model_count > 0 else "No"
+        return "YES: " + str(model_count) if model_count > 0 else "NO"
