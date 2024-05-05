@@ -26,7 +26,7 @@ class Truth_Table:
         # Replace each symbol with its truth value in symbol_table
             for symbol in symbols:
                 expr = re.sub(r'\b' + re.escape(symbol) + r'\b', f'{symbol_table[symbol]}', expr)
-            expr = expr.replace('<=>', '==').replace('=>', '<=').replace('&', ' and ').replace('|', ' or ').replace('~', 'not ')
+            expr = expr.replace('<=>', '==').replace('=>', '<=').replace('&', ' and ').replace('||', ' or ').replace('~', ' not ')
             return expr
 
         # Check each interpretation
