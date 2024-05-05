@@ -58,12 +58,10 @@ def main():
 
         # Check the specified inference method
         if method == 'FC':
-            # If the method is 'FC' (Forward Chaining), call the forward_chaining function
-            # result = forward_chaining(kb, query)
-            # # Print the result of the Forward Chaining inference
-            # print(result)
+            # If the method is 'FC' (Forward Chaining), initialise the engine to Forward class
             engine = Forward(kb, query)
         elif method == 'TT':
+            # If the method is 'TT' (Truth Table), initialise the engine to Truth_Table class
             engine = Truth_Table(kb, query)
         else:
             # If the method is not supported, print an error message
@@ -75,6 +73,12 @@ def main():
     except FileNotFoundError:
         # If the specified file is not found, print an error message
         print("File not found.")
+    except ValueError:
+        # If apply FC or BC to non-Horn KB
+        print("Only applicable for Horn-based KB")
+    except:
+        # If file is written in invalid format
+        print("Please review file's format")
 
 # Check if the script is being run as the main program
 if __name__ == "__main__":
