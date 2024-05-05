@@ -1,40 +1,8 @@
 import sys
 from Truth_Table import Truth_Table
 from forward_chaining import Forward
-
-def parse_input(filename):
-    """
-    Parse the input file and return the knowledge base and query.
-    """
-    # Open the file and read its contents
-    with open(filename, 'r') as file:
-        content = file.read()
-
-    # Split the content into knowledge base and query
-    # The knowledge base and query are separated by the 'ASK' keyword
-    kb_query = content.split('ASK')
-
-    # Extract the knowledge base and remove the 'TELL' keyword and any leading/trailing whitespace
-    kb_str = kb_query[0].strip().replace('TELL', '').strip()
-
-    # Extract the query and remove any leading/trailing whitespace
-    query = kb_query[1].strip()
-
-    # Split the knowledge base into individual rules using the semicolon (';') as the separator
-    kb = kb_str.split(';')
-
-    # Remove any empty rules and strip leading/trailing whitespace from each rule
-    kb = [rule.strip() for rule in kb if rule.strip()]
-    
-    # Print the knowledge base and query for debugging purposes
-    print("Knowledge Base:")
-    for rule in kb:
-        print(rule)
-    print("\nQuery:")
-    print(query)
-
-    # Return the knowledge base as a list of rules and the query
-    return kb, query
+from backward_chaining import Backward
+from input_parser import parse_input
 
 def main():
     """
@@ -63,6 +31,8 @@ def main():
         elif method == 'TT':
             # If the method is 'TT' (Truth Table), initialise the engine to Truth_Table class
             engine = Truth_Table(kb, query)
+        elif method == 'BC':
+            engine = Backward(kb, query)
         else:
             # If the method is not supported, print an error message
             print("Method not supported.")
@@ -76,9 +46,9 @@ def main():
     except ValueError:
         # If apply FC or BC to non-Horn KB
         print("Only applicable for Horn-based KB")
-    except:
-        # If file is written in invalid format
-        print("Please review file's format")
+    # except:
+    #     # If file is written in invalid format
+    #     print("Please review file's format")
 
 # Check if the script is being run as the main program
 if __name__ == "__main__":
