@@ -1,4 +1,5 @@
 import itertools
+import re
 
 class Truth_Table:
     def __init__(self, kb, query):
@@ -8,22 +9,31 @@ class Truth_Table:
 
     def inference(self):
         # Extract all unique propositional symbols from the knowledge base and query
-        symbols = set()
-        for expression in self.kb + [self.query]:
-            for char in expression:
-                if char.isalpha() and char not in symbols:
-                    symbols.add(char)
-                    
-        symbols = list(symbols)  # Convert set to list
-        print(symbols)
+        print(self.kb)
+        # symbols = set()
+        # for expression in self.kb + [self.query]:
+        #     symbols.update([char for char in expression.split() if char.isalnum()])
+
+        # symbols = list(symbols)  # Convert set to list
+
+        # Extract all unique propositional symbols from the knowledge base and query
+        symbols = set(re.findall(r'\b\w+\b', ' '.join(self.kb + [self.query])))
+        symbols.difference_update(set(['and', 'or', 'not']))  # Remove logical keywords if accidentally captured
+
+        print(symbols)           # debugging symbols list
+
         # Generate all possible interpretations (combinations of truth values for each symbol)
         all_interpretations = list(itertools.product([False, True], repeat=len(symbols)))
+        model_count = 0     #introduce counter to print the number of model
+
+        #print("Interpret:",all_interpretations[0])
 
         # Function to evaluate an expression given a truth assignment
         def prepare_expression(expr, symbol_table):
+        # Replace each symbol with its truth value in symbol_table
             for symbol in symbols:
-                expr = expr.replace(symbol, f'{symbol_table[symbol]}')
-            expr = expr.replace('&', ' and ').replace('|', ' or ').replace('=>', ' <= ').replace('<=>', ' == ').replace('~', ' not ')
+                expr = re.sub(r'\b' + re.escape(symbol) + r'\b', f'{symbol_table[symbol]}', expr)
+            expr = expr.replace('=>', '<=').replace('&', ' and ').replace('|', ' or ').replace('~', ' not ')
             return expr
 
         # Check each interpretation
@@ -31,12 +41,13 @@ class Truth_Table:
             symbol_table = dict(zip(symbols, interpretation))
             prepared_kb = [prepare_expression(expr, symbol_table) for expr in self.kb]
             prepared_query = prepare_expression(self.query, symbol_table)
+            # print(symbol_table)
+            # print(prepared_kb)
+            # print(prepared_query)
             # Evaluate the knowledge base under the current interpretation
             kb_true = all(eval(expr) for expr in prepared_kb)
             
-            if kb_true:
-                # If the knowledge base is true, check if the query is also true
-                if eval(prepared_query):
-                    return "Yes" #+ f": {len()}"
+            if kb_true and eval(prepared_query): # Check if the knowledge base is true and the query is true
+                model_count += 1
 
-        return "No"
+        return "Yes: " + str(model_count) if model_count > 0 else "No"
