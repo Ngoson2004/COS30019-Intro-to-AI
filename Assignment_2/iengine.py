@@ -1,6 +1,7 @@
 import sys
 from Truth_Table import Truth_Table
 from forward_chaining import Forward
+from backward_chaining import Back_chain
 
 def parse_input(filename):
     """
@@ -63,6 +64,9 @@ def main():
         elif method == 'TT':
             # If the method is 'TT' (Truth Table), initialise the engine to Truth_Table class
             engine = Truth_Table(kb, query)
+        elif method == 'BC':
+            # If the method is 'BC' (Backward_chaining), initialise the engine to backward_chaining class
+            engine = Back_chain(kb, query)
         else:
             # If the method is not supported, print an error message
             print("Method not supported.")
