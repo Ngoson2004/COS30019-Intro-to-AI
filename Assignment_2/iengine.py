@@ -21,21 +21,26 @@ def main():
     method = sys.argv[2]
 
     try:
-        # Parse the input file to get the knowledge base and query
-        kb, query = parse_input(filename)
+        # Read the input file
+        with open(filename, 'r') as file:
+            input_string = file.read()
+
+        # Parse the input string to get the knowledge base and query
+        kb, query = parse_input(input_string)
 
         # Check the specified inference method
         if method == 'FC':
-            # If the method is 'FC' (Forward Chaining), initialise the engine to Forward class
+            # If the method is 'FC' (Forward Chaining), initialize the engine to Forward class
             engine = Forward(kb, query)
         elif method == 'TT':
-            # If the method is 'TT' (Truth Table), initialise the engine to Truth_Table class
-            engine = Truth_Table(kb, query)
+            # If the method is 'TT' (Truth Table), initialize the engine to Truth_Table class
+            engine = Truth_Table(input_string)
         elif method == 'BC':
             engine = Backward(kb, query)
         else:
             # If the method is not supported, print an error message
             print("Method not supported.")
+            return
 
         result = engine.inference()
         print(result)
