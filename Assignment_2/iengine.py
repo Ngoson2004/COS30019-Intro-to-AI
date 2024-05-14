@@ -35,6 +35,7 @@ def main():
         elif method == 'BC':
             # If the method is 'BC' (Backward_chaining), initialise the engine to backward_chaining class
             engine = Backward(kb, query)
+
         else:
             # If the method is not supported, print an error message
             print("Method not supported.")
