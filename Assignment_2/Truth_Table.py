@@ -12,7 +12,7 @@ class Truth_Table:
         # Use regular expressions to find and replace only whole word symbols, ensuring that partial matches (like replacing 'a' in 'cat') do not occur.
         symbols = set(re.findall(r'\b\w+\b', ' '.join(self.kb + [self.query])))
         symbols.difference_update(set(['and', 'or', 'not']))  # Remove logical keywords if accidentally captured
-        print(symbols)  # debugging symbols extraction
+        #print(symbols)  # debugging symbols extraction
 
         # Generate all possible interpretations (combinations of truth values for each symbol)
         all_interpretations = list(itertools.product([False, True], repeat=len(symbols)))
