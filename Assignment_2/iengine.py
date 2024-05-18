@@ -5,6 +5,7 @@ from backward_chaining import Backward
 from input_parser import parse_input
 
 
+
 def parse_input(filename):
     """
     Parse the input file and return the knowledge base and query.
@@ -76,10 +77,11 @@ def main():
 
         result = engine.inference()
         print(result)
-
     except FileNotFoundError:
         # If the specified file is not found, print an error message
         print("File not found.")
+    except ValueError:
+        print("Not applicable for generic KB.")
 
 # Check if the script is being run as the main program
 if __name__ == "__main__":

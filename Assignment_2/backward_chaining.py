@@ -15,8 +15,8 @@ class Backward:
                         rules[left] = []
                     if right not in rules:
                         rules[right] = []
-                    rules[left].append(left)
-                    rules[right].append(right)
+                    rules[left].append(right)
+                    rules[right].append(left)
                 elif "=>" in expr:
                     antecedent, consequent = expr.split('=>')
                     if consequent.strip() not in rules:
