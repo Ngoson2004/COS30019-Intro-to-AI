@@ -4,7 +4,6 @@ from forward_chaining import Forward
 from backward_chaining import Backward
 from input_parser import parse_input
 
-
 def main():
     """
     Main function to run the inference engine.

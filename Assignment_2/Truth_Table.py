@@ -24,7 +24,17 @@ class Truth_Table:
             # Replace each symbol with its truth value in symbol_table
             for symbol in symbols:
                 expr = re.sub(r'\b' + re.escape(symbol) + r'\b', f'{symbol_table[symbol]}', expr)
-            expr = expr.replace('<=>', '==').replace('=>', '<=').replace('&', ' and ').replace('||', ' or ').replace('~', ' not ')
+
+            # Replace implications followed by negations with their logical equivalents
+            expr = expr.replace('<=>', '==').replace('=>', '<=').replace('&', ' and ').replace('||', ' or ')
+            expr = re.sub(r'\b(\w+)\s*=>\s*~(\w+)\b', r'not (\1 and \2)', expr)
+
+            # Replace negation operator
+            expr = expr.replace('~', ' not ')
+            # Replace negation operator followed by True with False
+            expr = expr.replace('not True', ' False ')
+            expr = expr.replace('not False', ' True ')
+
             return expr
 
         # Check each interpretation
