@@ -69,3 +69,4 @@ class Backward:
             return "YES: " + ', '.join(self.entail)
         else:
             return "NO"
+
