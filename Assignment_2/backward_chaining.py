@@ -67,10 +67,13 @@ class Backward:
                 return False
             
             return prove(query)
-
-        if backward(self.kb, self.query):
-            #print(self.entail)
-            return "YES: " + ', '.join(self.entail)
-        else:
+        
+        try:
+            if backward(self.kb, self.query):
+                #print(self.entail)
+                return "YES: " + ', '.join(self.entail)
+            else:
+                return "NO"
+        except RecursionError:
             return "NO"
 

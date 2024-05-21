@@ -31,7 +31,7 @@ def process_disjunction(clause):
         return f"({body}) => ({head})"
     else:
         # All literals are negative
-        return " & ".join([negate_literal(lit) for lit in negative_literals])
+        return f"{' & '.join([negate_literal(lit) for lit in negative_literals])} => False"
 
 def to_horn_form(kb):
     horn_clauses = []

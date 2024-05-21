@@ -51,7 +51,7 @@ class Truth_Table:
 
             # Evaluate the knowledge base under the current interpretation
             kb_true = all(eval(expr) for expr in prepared_kb)
-            if kb_true and eval(prepared_query):
+            if kb_true and eval(str(prepared_query)):
                 # Check if the knowledge base is true and the query is true
                 model_count += 1
 
