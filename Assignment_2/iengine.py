@@ -1,5 +1,5 @@
 import sys
-from Truth_Table import Truth_Table
+from second_Truth_Table import Truth_Table
 from forward_chaining import Forward
 from backward_chaining import Backward
 from input_parser import parse_input
@@ -38,6 +38,7 @@ def main():
         else:
             # If the method is not supported, print an error message
             print("Method not supported.")
+            return
 
         result = engine.inference()
         print(result)
