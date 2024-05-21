@@ -9,7 +9,7 @@ class Truth_Table:
 
     def inference(self):
         # Extract all unique propositional symbols from the knowledge base and query
-        print("\nProcessed KB:",self.kb)
+        print("\nProcessed KB:",'; '.join(self.kb))
         # Use regular expressions to find and replace only whole word symbols, ensuring that partial matches (like replacing 'a' in 'cat') do not occur.
         symbols = set(re.findall(r'\b\w+\b', ' '.join(self.kb + [self.query])))
         #symbols.difference_update(set(['and', 'or', 'not']))  # Remove logical keywords if accidentally captured
