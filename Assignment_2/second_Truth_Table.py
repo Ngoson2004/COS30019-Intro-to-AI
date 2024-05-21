@@ -43,7 +43,7 @@ class Truth_Table:
         for interpretation in all_interpretations:
             symbol_table = dict(zip(symbols, interpretation))
             prepared_kb = [prepare_expression(expr, symbol_table) for expr in self.kb]
-            prepared_query = prepare_expression(self.query, symbol_table)
+            prepared_query = [prepare_expression(self.query, symbol_table)]
 
             #print("Table:",symbol_table)
             #print("KB:", prepared_kb)
