@@ -20,5 +20,5 @@ search algorithm, the agent will have a different way of searching. The program 
 2. Inference engine CLI
 - Contribution thanks to @StrattonJJ
 - To run this program, `cd` to Assignment_2 folder.
-- Then simply type “python iengine.py <<filedir>> <<method>>” on the command prompt. We have 3 syntaxes for <<method>>: TT (for Truth Table), FC (for forward chaining), and BC (for backward chaining).
+- Then simply type `python iengine.py <<filedir>> <<method>>` on the command prompt. We have 3 syntaxes for <<method>>: TT (for Truth Table), FC (for forward chaining), and BC (for backward chaining).
 - Result for query is either YES or NO.
