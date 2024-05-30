@@ -1,4 +1,4 @@
-![image](https://github.com/Ngoson2004/COS30019-Intro-to-AI/assets/86477887/9781da12-866c-4a66-8d45-65a084b6a27a)![image](https://github.com/Ngoson2004/COS30019-Intro-to-AI/assets/86477887/1c756937-884b-4670-b531-059772649d22)# COS30019-Intro-to-AI
+# COS30019-Intro-to-AI
 
 ## There are two programs in this repository:
 1. Tree-based search visualisation
